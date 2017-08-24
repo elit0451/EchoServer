@@ -12,21 +12,11 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            TcpClient server = new TcpClient("localhost", 11000);
-
-            string serverMessage = "";
-
-            NetworkStream stream = server.GetStream();
-            StreamReader reader = new StreamReader(stream);
-            StreamWriter writer = new StreamWriter(stream);
-
-            writer.AutoFlush = true;
+            EchoServerFacade esf = new EchoServerFacade("localhost", 11000);
 
             while (true)
             {
-                writer.WriteLine(Console.ReadLine());
-                serverMessage = reader.ReadLine();
-                Console.WriteLine(serverMessage);
+                esf.Echo(Console.ReadLine());
             }
 
             Console.ReadKey();

@@ -28,9 +28,10 @@ namespace EchoServer
 
             while (true)
             {
-                ClientHandler clientHandl = new ClientHandler();
-                Thread clientThread = new Thread(clientHandl.Run);
-                clientThread.Start(listener.AcceptSocket());
+                ClientHandler clientHandl = new ClientHandler(listener.AcceptSocket());
+                Console.WriteLine("A client connected.");
+                Thread clientThread = new Thread(clientHandl.RunClient);
+                clientThread.Start();
             }
             
 
