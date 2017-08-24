@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace EchoServer
@@ -27,7 +28,9 @@ namespace EchoServer
 
             while (true)
             {
-                ClientHandler clientHandl = new ClientHandler(listener.AcceptSocket());
+                ClientHandler clientHandl = new ClientHandler();
+                Thread clientThread = new Thread(clientHandl.Run);
+                clientThread.Start(listener.AcceptSocket());
             }
             
 

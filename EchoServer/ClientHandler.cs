@@ -10,14 +10,12 @@ namespace EchoServer
 {
     class ClientHandler
     {
-        public ClientHandler(Socket connection)
-        {
-            Console.WriteLine("A client connected.");
-            Run(connection);
-        }
 
-        private void Run(Socket conn)
+        public void Run(object connection)
         {
+            Socket conn = (Socket)connection;
+            Console.WriteLine("A client connected.");
+
             bool clientConnected = true;
 
             while (clientConnected)
