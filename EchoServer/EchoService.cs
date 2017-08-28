@@ -6,16 +6,24 @@ using System.Threading.Tasks;
 
 namespace EchoServer
 {
-    static class EchoService
+     class EchoService
     {
-        public static string Echo(string message)
+        private string lastMessage = "";
+        public string Echo(string message)
         {
-            return message;
+            lastMessage = message;
+            return lastMessage;
         }
 
-        public static string EchoUpper(string message)
+        public string EchoUpper(string message)
         {
-            return message.ToUpper();
+            lastMessage = message.ToUpper();
+            return lastMessage;
+        }
+
+        public string ReturnLastMessage()
+        {
+            return lastMessage;
         }
     }
 }

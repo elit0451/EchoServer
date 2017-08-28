@@ -21,7 +21,6 @@ namespace Client
         {
             serverName = ipAddress;
             serverPort = port;
-            Open();
         }
 
         private void Open()
@@ -51,15 +50,12 @@ namespace Client
 
         public void Echo(string message)
         {
-            SendToServer(message);
-            Console.WriteLine(ReceiveFromServer());
-
+            DoDialog(message);
         }
 
         public void EchoUpper(string message)
         {
-            SendToServer(message);
-            Console.WriteLine(ReceiveFromServer());
+            DoDialog(message);
         }
 
 
@@ -73,6 +69,13 @@ namespace Client
             writer.WriteLine(message);
         }
 
+        private void DoDialog(string message)
+        {
+            Open();
+            SendToServer(message);
+            Console.WriteLine(ReceiveFromServer());
+            Close();
+        }
 
 
     }

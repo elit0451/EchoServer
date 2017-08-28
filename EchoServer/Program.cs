@@ -21,6 +21,8 @@ namespace EchoServer
 
         private void Run()
         {
+            EchoService es = new EchoService();
+
             TcpListener listener = new TcpListener(IPAddress.Any, 11000);
             listener.Start();
 
@@ -28,7 +30,7 @@ namespace EchoServer
 
             while (true)
             {
-                ClientHandler clientHandl = new ClientHandler(listener.AcceptSocket());
+                ClientHandler clientHandl = new ClientHandler(listener.AcceptSocket(), es);
                 Console.WriteLine("A client connected.");
                 Thread clientThread = new Thread(clientHandl.RunClient);
                 clientThread.Start();

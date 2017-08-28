@@ -25,10 +25,13 @@ namespace Client
                         break;
                     case "echoU": esf.EchoUpper(messageClient);
                         break;
+                    case "last": esf.Echo(messageClient);
+                        break;
                     default:
                         Console.WriteLine("Invalid command");
                         break;
                 }
+
             }
 
             Console.ReadKey();

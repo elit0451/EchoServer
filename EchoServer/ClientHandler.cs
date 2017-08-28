@@ -14,14 +14,17 @@ namespace EchoServer
         private NetworkStream netStream;
         private StreamReader reader;
         private StreamWriter writer;
+        private EchoService es;
 
-        public ClientHandler(Socket clientS)
+        public ClientHandler(Socket clientS, EchoService eService)
         {
             clientSocket = clientS;
             netStream = new NetworkStream(clientSocket);
             reader = new StreamReader(netStream);
             writer = new StreamWriter(netStream);
             writer.AutoFlush = true;
+
+            es = eService;
         }
 
         private void DoDialog(string messageClient)
@@ -37,16 +40,22 @@ namespace EchoServer
             messageClient = ReceiveFromClient();
             string command = messageClient.Split(' ')[0];
             Console.WriteLine(command);
-            switch(command)
+            switch (command)
             {
-                case "echo": DoDialog(EchoService.Echo(messageClient.Substring(5)));
+                case "echo":
+                    DoDialog(es.Echo(messageClient.Substring(5)));
                     break;
-                case "echoU": DoDialog(EchoService.EchoUpper(messageClient.Substring(6)));
+                case "echoU":
+                    DoDialog(es.EchoUpper(messageClient.Substring(6)));
                     break;
-                default: DoDialog("Invalid command");
+                case "last":
+                    DoDialog(es.ReturnLastMessage());
+                    break;
+                default:
+                    DoDialog("Invalid command");
                     break;
             }
-            
+
         }
 
         private string ReceiveFromClient()
@@ -64,7 +73,7 @@ namespace EchoServer
                 {
                     ExecuteCommand();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     clientConnected = false;
                 }
