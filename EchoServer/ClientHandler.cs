@@ -12,9 +12,9 @@ namespace EchoServer
     {
         private Socket clientSocket;
         private NetworkStream netStream;
-        private StreamReader reader;
-        private StreamWriter writer;
-        private EchoService es;
+        public StreamReader reader;
+        public StreamWriter writer;
+        public EchoService es;
 
         public ClientHandler(Socket clientS, EchoService eService)
         {

@@ -14,8 +14,10 @@ namespace Client
         NetworkStream netStream;
         StreamReader reader;
         StreamWriter writer;
+
         int serverPort = 0;
         string serverName = "";
+        int sessionId = -1;
 
         public EchoServerFacade(string ipAddress, int port)
         {
@@ -30,6 +32,8 @@ namespace Client
             reader = new StreamReader(netStream);
             writer = new StreamWriter(netStream);
             writer.AutoFlush = true;
+            writer.WriteLine(sessionId);
+            sessionId = int.Parse(reader.ReadLine());
         }
 
         private void Close()
