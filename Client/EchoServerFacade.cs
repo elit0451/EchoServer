@@ -56,9 +56,10 @@ namespace Client
 
         }
 
-        public void EchoUpper()
+        public void EchoUpper(string message)
         {
-
+            SendToServer(message);
+            Console.WriteLine(ReceiveFromServer());
         }
 
 

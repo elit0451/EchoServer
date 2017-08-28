@@ -16,7 +16,19 @@ namespace Client
 
             while (true)
             {
-                esf.Echo(Console.ReadLine());
+                string messageClient = Console.ReadLine();
+
+                string messageCommand = messageClient.Split(' ')[0];
+                switch (messageCommand)
+                {
+                    case "echo": esf.Echo(messageClient);
+                        break;
+                    case "echoU": esf.EchoUpper(messageClient);
+                        break;
+                    default:
+                        Console.WriteLine("Invalid command");
+                        break;
+                }
             }
 
             Console.ReadKey();
